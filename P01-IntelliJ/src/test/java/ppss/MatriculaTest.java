@@ -23,4 +23,57 @@ public class MatriculaTest {
         //resultadoEsperado = resultadoReal +/- 0.002
         assertEquals(resultadoEsperado, resultadoReal,0.002f);
     }
+
+    @Test
+    public void testCalculaTasaMatriculaC2(){
+        edad = 23;
+        familiaNumerosa = false;
+        repetidor = false;
+        resultadoEsperado = 500;
+        mat = new Matricula();
+        resultadoReal = mat.calculaTasaMatricula(edad,familiaNumerosa,repetidor);
+        assertEquals(resultadoEsperado,resultadoReal,0.002f);
+    }
+
+    @Test
+    public void testCalculaTasaMatriculaC3(){
+        edad = 26;
+        familiaNumerosa = true;
+        repetidor = false;
+        resultadoEsperado = 250.00f;
+        mat = new Matricula();
+        resultadoReal = mat.calculaTasaMatricula(edad,familiaNumerosa,repetidor);
+        assertEquals(resultadoEsperado,resultadoReal,0.002f);
+    }
+
+    @Test
+    public void testCalculaTasaMatriculaC4(){
+        edad = 52;
+        familiaNumerosa = false;
+        repetidor = false;
+        resultadoEsperado = 400.00f;
+        mat = new Matricula();
+        resultadoReal = mat.calculaTasaMatricula(edad,familiaNumerosa,repetidor);
+        assertEquals(resultadoEsperado,resultadoReal,0.002f);
+    }
+    @Test
+    public void testCalculaTasaMatriculaC5(){
+        edad = 66;
+        familiaNumerosa = false;
+        repetidor = false;
+        resultadoEsperado = 250.00f;
+        mat = new Matricula();
+        resultadoReal = mat.calculaTasaMatricula(edad,familiaNumerosa,repetidor);
+        assertEquals(resultadoEsperado,resultadoReal,0.002f);
+    }
+    @Test
+    public void testCalculaTasaMatriculaC6(){
+        edad = 22;
+        familiaNumerosa = false;
+        repetidor = true;
+        resultadoEsperado = 2000.00f;
+        mat = new Matricula();
+        resultadoReal = mat.calculaTasaMatricula(edad,familiaNumerosa,repetidor);
+        assertEquals(resultadoEsperado,resultadoReal,0.002f);
+    }
 }
