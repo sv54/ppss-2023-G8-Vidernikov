@@ -1,0 +1,11 @@
+1.
+D)De datos de entrada serian 3 columnas, a, b y c
+|Identificador|a |b |c |resultado esperad     |
+|C1           |1 |1 |1 |"Equilatero"          |
+|C2           |1 |1 |12|"No es un triangulo"  |
+|C3           |1 |2 |0 |"Valor c fuera de ..."|
+|C4           |14|10|10|"Isosceles"           |
+2. 
+B) Se ha creado nueva configuracion con "test -Dtest=MatriculaTest"
+
+D) Tanto test 1 como posible test 5 daran deberian dar el mismo resultado esperado. Además se recorre el mismo camino por lo que añadir el test 5 seria redundante.
