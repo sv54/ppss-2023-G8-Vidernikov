@@ -5,7 +5,24 @@ D)De datos de entrada serian 3 columnas, a, b y c
 |C2           |1 |1 |12|"No es un triangulo"  |
 |C3           |1 |2 |0 |"Valor c fuera de ..."|
 |C4           |14|10|10|"Isosceles"           |
+
 2. 
 B) Se ha creado nueva configuracion con "test -Dtest=MatriculaTest"
 
 D) Tanto test 1 como posible test 5 daran deberian dar el mismo resultado esperado. Además se recorre el mismo camino por lo que añadir el test 5 seria redundante.
+
+3.
+B) En principio, los 6 test implementados prueban los casos que aparecen en la tabla.
+
+4.
+A) Al ejecutar el package se ejecutaron:
+resources
+compile
+testResources
+testCompile
+test
+jar
+
+es decir, se ejecutaron todas las fases de 1 a 17 y los goals correspondientes. Se ha generado el .jar del proyecto, ubicado en la carpeta target.
+Si introducimos un error en la parte de Test, la fase test nos da un error y no se genera el .jar.
+Si quitamos ; en Matricula.java, se produce una error en la fase de compilacion, indicando que nos falta el ; y la linea en la que deberia aparecer. Al igual que antes no se genera el fichero .jar.
