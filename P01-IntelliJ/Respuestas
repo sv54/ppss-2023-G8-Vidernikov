@@ -9,9 +9,21 @@ D)De datos de entrada serian 3 columnas, a, b y c
 2. 
 B) Se ha creado nueva configuracion con "test -Dtest=MatriculaTest"
 
-D) Tanto test 1 como posible test 5 daran deberian dar el mismo resultado esperado. Además se recorre el mismo camino por lo que añadir el test 5 seria redundante.
+D) Tanto test 1 como posible test 5 deberian dar el mismo resultado esperado. Además se recorre el mismo camino por lo que añadir el test 5 seria redundante.
 
 3.
+a)
+|	 |			Datos entrada		|				   |
+|caso|edad|familiaNumerosa|repetidor|Resultado Esperado|
+| 1	 | 23 | 	true	  |  true   |		250.0	   |
+| 2  | 23 |		false	  |  false  |		500.0	   |
+| 3  | 26 |		true	  |  false  |		250.0	   |
+| 4  | 52 |		false	  |	 false  |		400.0	   |
+| 5  | 66 | 	false	  |	 false  |		250.0	   |
+| 6  | 22 |		false	  |	 true   |		2000.0	   |
+
+
+
 B) En principio, los 6 test implementados prueban los casos que aparecen en la tabla.
 
 4.
