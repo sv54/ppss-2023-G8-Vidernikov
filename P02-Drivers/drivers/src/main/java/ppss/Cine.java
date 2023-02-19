@@ -20,7 +20,7 @@ public class Cine {
             }
             j++;
         }
-        if (sitiosLibres == solicitados) {
+        if (sitiosLibres == solicitados && solicitados > 0) {
             primerLibre = (j - solicitados);
             reserva = true;
             for (int k = primerLibre; k < (primerLibre + solicitados); k++) {
