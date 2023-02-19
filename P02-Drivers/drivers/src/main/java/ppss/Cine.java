@@ -8,6 +8,10 @@ public class Cine {
         int sitiosLibres = 0;
         int primerLibre;
 
+        if (solicitados > asientos.length){
+            throw new ButacasException("No se puede procesar la solicitud");
+        }
+
         while ((j < asientos.length) && (sitiosLibres < solicitados)) {
             if (!asientos[j]) {
                 sitiosLibres++;
