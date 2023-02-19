@@ -2,9 +2,14 @@ package ppss;
 
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.ArrayList;
+import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -63,4 +68,22 @@ public class CineTest {
         );
     }
 
+    @ParameterizedTest
+    @Tag("parametrizado")
+    @MethodSource("casosDePrueba")
+    public void reservaButacasC5(boolean resultadoEsperado, boolean[] asientosEsperado,boolean[] asientos, int solicitados ) throws ButacasException {
+        assertAll(
+                ()->assertEquals(resultadoEsperado, cine.reservaButacasV1(asientos,solicitados)),
+                ()->assertArrayEquals(asientosEsperado, asientos)
+
+        );
+    }
+
+    private static Stream<Arguments> casosDePrueba(){
+        return Stream.of(
+                Arguments.of(false,new boolean[]{}, new boolean[]{},0),
+                Arguments.of(true, new boolean[]{true, true, false,true, true},new boolean[]{false,false,false,true,true},2),
+                Arguments.of(false,new boolean[]{true, true, true}, new boolean[]{true,true,true},1)
+        );
+    }
 }
