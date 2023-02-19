@@ -1,0 +1,7 @@
+Run todos: test -DexcludedGroups=parametrizado,excluido
+Run CineTest: clean test -Dtest=CineTest -DexcludedGroups=parametrizado
+Run DataArray Test: test -Dtest=DataArrayTest
+Run FicheroTextoTest sin excluidos: test -Dtest=FicheroTextoTest -DexcludedGroups=excluido
+Run parametrizado: test -Dgroups=parametrizado
+Run Parametrizados con excepciones: test -Dgroups=parametrizado&conExcepciones
+(En el ultimo tambien podriamos poner solo test -Dgroups=conExcepciones)
