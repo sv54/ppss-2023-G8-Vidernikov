@@ -97,4 +97,23 @@ public class DataArrayTest {
         );
     }
 
+    @Tag("parametrizado")
+    @ParameterizedTest
+    @MethodSource("sinExcepciones")
+    public void dataArrayTestC9(int[] coleccionEsperado, int[] coleccion, int borrar){
+        dataArray = new DataArray(coleccion);
+        assertAll(
+                () -> assertDoesNotThrow(() -> dataArray.delete(borrar)),
+                () -> assertArrayEquals(coleccionEsperado, dataArray.getColeccion())
+        );
+    }
+
+    public static Stream<Arguments> sinExcepciones(){
+        return Stream.of(
+                Arguments.of(new int[]{1,3,7},new int[]{1,3,5,7},5 ),
+                Arguments.of(new int[]{1,3,5,7},new int[]{1,3,3,5,7},3),
+                Arguments.of(new int[]{1,2,3,5,6,7,8,9,10},new int[]{1,2,3,4,5,6,7,8,9,10},4 )
+        );
+    }
+
 }
