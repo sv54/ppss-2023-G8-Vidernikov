@@ -1,4 +1,5 @@
-import ejercicio1.GestorLlamadas;
+package ppss.ejercicio1;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Tag;

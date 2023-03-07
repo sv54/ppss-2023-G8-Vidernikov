@@ -1,4 +1,4 @@
-package ejercicio1;
+package ppss.ejercicio1;
 
 import java.util.Calendar;
 
