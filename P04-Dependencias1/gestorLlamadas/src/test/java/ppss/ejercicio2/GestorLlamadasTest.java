@@ -1,9 +1,12 @@
 package ppss.ejercicio2;
 
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class GestorLlamadasTest {
+
+    @Tag("Ejercicio2")
 
     @Test
     public void gestroLlamadasC1(){
@@ -17,6 +20,7 @@ public class GestorLlamadasTest {
 
     }
 
+    @Tag("Ejercicio2")
     @Test
     public void gestroLlamadasC2(){
 
