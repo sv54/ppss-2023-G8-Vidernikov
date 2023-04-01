@@ -1,16 +1,13 @@
 package ppss;
 
-import ppss.excepciones.*;
+import ppss.excepciones.IsbnInvalidoException;
+import ppss.excepciones.JDBCException;
+import ppss.excepciones.ReservaException;
+import ppss.excepciones.SocioInvalidoException;
 
 import java.util.ArrayList;
 
-public class Reserva {
-
-    private FactoriaBOs fb = new FactoriaBOs();
-
-    public void setFd(FactoriaBOs f){
-        fb = f;
-    }
+public class Reserva2 {
 
     public boolean compruebaPermisos(String login, String password, Usuario tipoUsu) {
         throw new UnsupportedOperationException("Not yet implemented");
@@ -18,12 +15,12 @@ public class Reserva {
 
     public void realizaReserva(String login, String password,
                                String socio, String [] isbns) throws ReservaException {
-        ArrayList<String> errores = new ArrayList<String>();
+
+        ArrayList<String> errores = new ArrayList<>();
         if(!compruebaPermisos(login, password, Usuario.BIBLIOTECARIO)) {
             errores.add("ERROR de permisos");
         } else {
-            FactoriaBOs fd = fb;
-            IOperacionBO io = fd.getOperacionBO();
+            IOperacionBO io = FactoriaOperacion2.createOperacion();
             try {
                 for(String isbn: isbns) {
                     try {

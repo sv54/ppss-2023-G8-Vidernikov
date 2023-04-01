@@ -46,6 +46,8 @@ public class CineTest {
     }
 
     @Test
+    @Tag("pruebaCine")
+    @Tag("excluidoCine")
     public void reservaButacasC3() throws ButacasException {
         asientos = new boolean[]{false,false,false,true,true};
         solicitados = 2;
@@ -58,6 +60,7 @@ public class CineTest {
     }
 
     @Test
+    @Tag("pruebaCine")
     public void reservaButacasC4() throws ButacasException {
         asientos = new boolean[]{true, true, true};
         solicitados = 1;

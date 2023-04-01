@@ -14,6 +14,91 @@ import static org.junit.jupiter.api.Assertions.*;
 public class ReservaMockTest {
 
     IMocksControl ctrl;
+
+    Reserva r;
+
+    FactoriaBOs f;
+
+    IOperacionBO p;
+
+    String esperado, login, password, socio;
+
+
+    @BeforeEach
+    public void setup(){
+        ctrl = createStrictControl();
+        r = partialMockBuilder(Reserva.class).addMockedMethod("compruebaPermisos").mock(ctrl);
+        f = ctrl.mock(FactoriaBOs.class);
+        p = ctrl.mock(IOperacionBO.class);
+    }
+
+    @Test
+    public void realizarReservaC1(){
+        login = "xxxx";
+        password = "xxxx";
+
+        expect(r.compruebaPermisos(login, password, Usuario.BIBLIOTECARIO)).andReturn(false);
+
+        ctrl.replay();
+
+        ReservaException resul = assertThrows(ReservaException.class, () -> r.realizaReserva(login, password, "Pepe", new String[]{"33333"}));
+        assertEquals("ERROR de permisos; ", resul.getMessage());
+
+        ctrl.verify();
+    }
+
+    @Test
+    public void realizarReservaC2(){
+        login = "ppss";
+        password = "ppss";
+        socio = "Pepe";
+        r.setFd(f);
+        String[] isbns = new String[]{"22222", "33333"};
+
+        expect(r.compruebaPermisos(login, password, Usuario.BIBLIOTECARIO)).andReturn(true);
+        expect(f.getOperacionBO()).andReturn(p);
+        assertDoesNotThrow(() -> p.operacionReserva(socio, isbns[0]));
+
+        assertDoesNotThrow(() -> p.operacionReserva(socio, isbns[1]));
+
+        ctrl.replay();
+        assertDoesNotThrow(() -> r.realizaReserva(login, password, socio, isbns));
+        ctrl.verify();
+    }
+
+
+    @Test
+    public void realizarReservaC3(){
+        login = "ppss";
+        password = "ppss";
+        socio = "Pepe";
+        r.setFd(f);
+        String[] isbns = new String[]{"11111","22222", "55555"};
+
+        expect(r.compruebaPermisos(login, password, Usuario.BIBLIOTECARIO)).andReturn(true);
+        expect(f.getOperacionBO()).andReturn(p);
+        assertDoesNotThrow(() -> p.operacionReserva(socio, isbns[0]));
+        expectLastCall().andThrow(new IsbnInvalidoException());
+        assertDoesNotThrow(() -> p.operacionReserva(socio, isbns[1]));
+        assertDoesNotThrow(() -> p.operacionReserva(socio, isbns[2]));
+        expectLastCall().andThrow(new IsbnInvalidoException());
+
+
+        ctrl.replay();
+        ReservaException resul = assertThrows(ReservaException.class,() -> r.realizaReserva(login, password, socio, isbns));
+        assertEquals("ISBN invalido:11111; ISBN invalido:55555; ", resul.getMessage());
+
+        ctrl.verify();
+    }
+
+
+
+
+
+
+
+/*
+    IMocksControl ctrl;
     FactoriaBOs f;
     IOperacionBO op;
     Reserva r;
@@ -25,7 +110,7 @@ public class ReservaMockTest {
     @BeforeEach
     public void setup(){
         ctrl = createStrictControl();
-        r = partialMockBuilder(Reserva.class).addMockedMethod("compruebaPermisos").createMock(ctrl);
+        r = partialMockBuilder(Reserva.class).addMockedMethod("compruebaPermisos").mock(ctrl);
         op = ctrl.mock(IOperacionBO.class);
         f = ctrl.mock(FactoriaBOs.class);
 
@@ -137,5 +222,5 @@ public class ReservaMockTest {
 
         ctrl.verify();
 
-    }
+    }*/
 }

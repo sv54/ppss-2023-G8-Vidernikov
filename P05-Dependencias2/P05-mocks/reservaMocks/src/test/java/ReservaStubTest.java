@@ -10,6 +10,83 @@ import static org.junit.jupiter.api.Assertions.*;
 
 
 public class ReservaStubTest {
+
+    Reserva r;
+
+    FactoriaBOs f;
+
+    IOperacionBO op;
+
+    String esperado, login, password, socio;
+
+
+    @BeforeEach
+    public void setup(){
+        r = partialMockBuilder(Reserva.class).addMockedMethod("compruebaPermisos").niceMock();
+        f = niceMock(FactoriaBOs.class);
+        op = niceMock(IOperacionBO.class);
+    }
+
+    @Test
+    public void realizarReservaC1(){
+        expect(r.compruebaPermisos(login, password, Usuario.BIBLIOTECARIO)).andStubReturn(false);
+
+        replay(r);
+
+        ReservaException resul = assertThrows(ReservaException.class, () -> r.realizaReserva(login, password, socio, new String[]{"33333"}));
+        assertEquals("ERROR de permisos; ", resul.getMessage());
+
+    }
+
+    @Test
+    public void realizarReservaC2(){
+        login = "ppss";
+        password = "ppss";
+        socio = "Pepe";
+        expect(r.compruebaPermisos(login, password, Usuario.BIBLIOTECARIO)).andStubReturn(true);
+        expect(f.getOperacionBO()).andStubReturn(op);
+        assertDoesNotThrow(() -> op.operacionReserva(anyString(), anyString() ));
+
+        replay(r, f, op);
+        r.setFd(f);
+        assertDoesNotThrow(() -> r.realizaReserva(login, password, socio, new String[]{"22222","33333"}));
+    }
+
+    @Test
+    public void realizarReservaC3(){
+        login = "ppss";
+        password = "ppss";
+        String[] isbns = new String[]{"11111","22222", "55555"};
+        socio = "Pepe";
+        expect(r.compruebaPermisos(login, password, Usuario.BIBLIOTECARIO)).andStubReturn(true);
+        expect(f.getOperacionBO()).andStubReturn(op);
+        assertDoesNotThrow(() -> op.operacionReserva(socio, isbns[1]));
+        assertDoesNotThrow(() -> op.operacionReserva(socio, isbns[0]));
+        expectLastCall().andThrow(new IsbnInvalidoException());
+        assertDoesNotThrow(() -> op.operacionReserva(socio, isbns[2]));
+        expectLastCall().andThrow(new IsbnInvalidoException());
+
+        replay(r, f, op);
+        r.setFd(f);
+        ReservaException resul = assertThrows(ReservaException.class,() -> r.realizaReserva(login, password, socio, isbns));
+        assertEquals("ISBN invalido:11111; ISBN invalido:55555; ", resul.getMessage());
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /*
     Reserva r;
     IOperacionBO op;
     FactoriaBOs f;
@@ -130,5 +207,5 @@ public class ReservaStubTest {
 
 
 
-
+*/
 }
