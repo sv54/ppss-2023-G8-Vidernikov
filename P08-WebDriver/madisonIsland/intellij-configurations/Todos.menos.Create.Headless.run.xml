@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="ejercicio2.conPO.TestLogin2" type="MavenRunConfiguration" factoryName="Maven">
+  <configuration default="false" name="Todos.menos.Create.Headless" type="MavenRunConfiguration" factoryName="Maven">
     <MavenSettings>
       <option name="myGeneralSettings" />
       <option name="myRunnerSettings" />
@@ -11,7 +11,9 @@
           <option name="goals">
             <list>
               <option value="test" />
-              <option value="-Dtest=TestLogin2.java" />
+              <option value="-DexcludedGroups=OnlyOnce" />
+              <option value="-Dtest=TestShoes" />
+              <option value="-Dheadless.values=true" />
             </list>
           </option>
           <option name="pomFileName" />

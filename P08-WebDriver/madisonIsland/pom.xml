@@ -12,6 +12,7 @@
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <headless.value>false</headless.value>
     </properties>
 
     <dependencies>
@@ -27,6 +28,12 @@
             <version>5.9.2</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-chrome-driver</artifactId>
+            <version>4.8.3</version>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
 
     <build>
@@ -35,6 +42,11 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>3.0.0-M8</version>
+                <configuration>
+                    <systemPropertyVariables>
+                        <chromeHeadless>${headless.value}</chromeHeadless>
+                    </systemPropertyVariables>
+                </configuration>
             </plugin>
         </plugins>
     </build>
