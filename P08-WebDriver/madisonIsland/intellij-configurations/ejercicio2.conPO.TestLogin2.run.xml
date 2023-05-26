@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="Ejercicio1.CreateAccount" type="MavenRunConfiguration" factoryName="Maven">
+  <configuration default="false" name="ejercicio2.conPO.TestLogin2" type="MavenRunConfiguration" factoryName="Maven">
     <MavenSettings>
       <option name="myGeneralSettings" />
       <option name="myRunnerSettings" />
@@ -11,15 +11,12 @@
           <option name="goals">
             <list>
               <option value="test" />
-              <option value="-Dtest=TestCreateAccount.java" />
+              <option value="-Dtest=TestLogin2.java" />
             </list>
           </option>
           <option name="pomFileName" />
           <option name="profilesMap">
-            <map>
-              <entry key="Dtest=TestCreateAccount" value="false" />
-              <entry key="test" value="true" />
-            </map>
+            <map />
           </option>
           <option name="resolveToWorkspace" value="false" />
           <option name="workingDirPath" value="$PROJECT_DIR$" />
