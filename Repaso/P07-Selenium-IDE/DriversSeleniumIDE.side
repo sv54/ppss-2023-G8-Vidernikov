@@ -1,0 +1,149 @@
+{
+  "id": "847ff401-5e82-45ce-ac08-ad9cb3fef014",
+  "version": "2.0",
+  "name": "DriversSeleniumIDE2",
+  "url": "http://localhost:8080",
+  "tests": [{
+    "id": "f5355962-51ab-439f-a7b5-7e75ec9662d3",
+    "name": "Test1",
+    "commands": [{
+      "id": "f155a1cb-6bbb-4aa4-847c-149957284207",
+      "comment": "",
+      "command": "open",
+      "target": "/jpetstore/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "a137a0f5-e0b4-45d7-867b-aac409ac47ad",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1920x1048",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "708cb02b-4bba-4c12-a906-1fb0dc4377e1",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Enter the Store",
+      "targets": [
+        ["linkText=Enter the Store", "linkText"],
+        ["css=a", "css:finder"],
+        ["xpath=//a[contains(text(),'Enter the Store')]", "xpath:link"],
+        ["xpath=//div[@id='Content']/p/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, 'actions/Catalog.action')]", "xpath:href"],
+        ["xpath=//a", "xpath:position"],
+        ["xpath=//a[contains(.,'Enter the Store')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "ffeb1c29-8a14-4e18-a25f-b712cd114816",
+      "comment": "",
+      "command": "verifyTitle",
+      "target": "JPetStore Demo",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "a4964a58-b814-4cd7-8872-5b19ddbe7710",
+      "comment": "",
+      "command": "click",
+      "target": "css=area:nth-child(2)",
+      "targets": [
+        ["css=area:nth-child(2)", "css:finder"],
+        ["xpath=//div[@id='MainImageContent']/map/area[2]", "xpath:idRelative"],
+        ["xpath=//area[2]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "bef3d78c-b91c-438b-a5cf-3d2f54adf628",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=FI-SW-02",
+      "targets": [
+        ["linkText=FI-SW-02", "linkText"],
+        ["css=tr:nth-child(3) a", "css:finder"],
+        ["xpath=//a[contains(text(),'FI-SW-02')]", "xpath:link"],
+        ["xpath=//div[@id='Catalog']/table/tbody/tr[3]/td/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, '/jpetstore/actions/Catalog.action?viewProduct=&productId=FI-SW-02')]", "xpath:href"],
+        ["xpath=//tr[3]/td/a", "xpath:position"],
+        ["xpath=//a[contains(.,'FI-SW-02')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "5ae5c5d5-3024-4884-946b-cacead04cb73",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=td:nth-child(3)",
+      "targets": [
+        ["css=td:nth-child(3)", "css:finder"],
+        ["xpath=//div[@id='Catalog']/table/tbody/tr[2]/td[3]", "xpath:idRelative"],
+        ["xpath=//td[3]", "xpath:position"]
+      ],
+      "value": "Toothless Tiger Shark"
+    }, {
+      "id": "8a2d9bc1-7a6e-4134-be80-d999cf7fb0f7",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Return to FISH",
+      "targets": [
+        ["linkText=Return to FISH", "linkText"],
+        ["css=#BackLink > a", "css:finder"],
+        ["xpath=//a[contains(text(),'Return to FISH')]", "xpath:link"],
+        ["xpath=//div[@id='BackLink']/a", "xpath:idRelative"],
+        ["xpath=(//a[contains(@href, '/jpetstore/actions/Catalog.action?viewCategory=&categoryId=FISH')])[2]", "xpath:href"],
+        ["xpath=//body/div[2]/div/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Return to FISH')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "277ab5d0-8b8f-4f12-b0b4-f3f6205de27c",
+      "comment": "",
+      "command": "click",
+      "target": "css=html",
+      "targets": [
+        ["css=html", "css:finder"],
+        ["xpath=//html", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "de6953ab-bd01-4ee5-82e0-257d9bffc275",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Return to Main Menu",
+      "targets": [
+        ["linkText=Return to Main Menu", "linkText"],
+        ["css=#BackLink > a", "css:finder"],
+        ["xpath=//a[contains(text(),'Return to Main Menu')]", "xpath:link"],
+        ["xpath=//div[@id='BackLink']/a", "xpath:idRelative"],
+        ["xpath=(//a[contains(@href, '/jpetstore/actions/Catalog.action')])[7]", "xpath:href"],
+        ["xpath=//body/div[2]/div/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Return to Main Menu')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "caab1fb2-7889-4832-9501-f4c7fa81bc26",
+      "comment": "",
+      "command": "verifyText",
+      "target": "linkText=Sign In",
+      "targets": [
+        ["linkText=Sign In", "linkText"],
+        ["css=#MenuContent > a:nth-child(3)", "css:finder"],
+        ["xpath=//a[contains(text(),'Sign In')]", "xpath:link"],
+        ["xpath=//div[@id='MenuContent']/a[2]", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, '/jpetstore/actions/Account.action?signonForm=')]", "xpath:href"],
+        ["xpath=//a[2]", "xpath:position"],
+        ["xpath=//a[contains(.,'Sign In')]", "xpath:innerText"]
+      ],
+      "value": "Sign In"
+    }]
+  }],
+  "suites": [{
+    "id": "bc540bd2-49f8-4681-8408-99b288114bb3",
+    "name": "Default Suite",
+    "persistSession": false,
+    "parallel": false,
+    "timeout": 300,
+    "tests": ["f5355962-51ab-439f-a7b5-7e75ec9662d3"]
+  }],
+  "urls": ["http://localhost:8080/"],
+  "plugins": []
+}
