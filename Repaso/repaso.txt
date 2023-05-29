@@ -1,0 +1,4 @@
+Las mismas practicas de segundo parcial solo que las vuelvo a hacer antes del examen.
+
+P06A
+Proyecto multimodulo no contiene codigo y solo contiene POM aggregator aparte de los modulos. El mecanismo de Maven usado para gestionar modulos se llama reactor. Se encarga de recopilar todos los modulos y los ordena para la construccion. El orden es importante.
