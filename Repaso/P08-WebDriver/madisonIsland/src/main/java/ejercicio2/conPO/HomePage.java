@@ -7,7 +7,8 @@ import org.openqa.selenium.WebElement;
 public class HomePage {
 
     WebDriver driver;
-    WebElement account, login;
+    WebElement account;
+    WebElement login;
 
     public HomePage(WebDriver driver){
         this.driver = driver;
