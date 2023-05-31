@@ -365,7 +365,23 @@ Plan de pruebas
 P10
 ---------------------------------
 
+Analisis de pruebas --> buscamos efectividad
+Cobertura de codigo --> cuanto codigo estamos probando
+Nivel 1 --> cobertura de lineas
+Nivel 2 --> cobertura de decisiones. 100% implica 100% de nivel 1
+Nivel 3 --> cobertura de condiciones. No garantiza 100% de cobertura de lineas.
+Nivel 4 --> cobertura de condiciones y decisiones. 100% Tambien se implica niveles 2 y 3 (y 1)
+Nivel 5 --> cobertura de multicondiciones --> probar todas las condiciones posibles. Implica nivel 4 (y 1,2,3)
+Nivel 6 --> cobertura de bucles --> ejecutar 0, 1, n (valor tipico) y maximo veces el bucle. 
+Nivel 7 --> cobertura de caminos. 100% implica niveles 1,2,3,4 pero no 5 (ni al reves)
 
+Usaremos JaCoCo para analizar los test. Genera informe con las siguientes metricas -->
+- Instrucciones --> numero de instrucciones byte code de Java.
+- Branches --> Se ejecuta cada decicion y condicion en verdadera y falsa. Si hay un if con 2 decisiones y 4 condiciones posibles entonces ese if tiene 6 branches. 
+- CC por metodo --> casos de prueba para cubrir todos los casos caminos lineamente independientes. CC = branches - Decision points + 1. Branches son aristas de decision point. branches = decision point * 2?
+- Lineas 
+- Metodos
+- Clases
 
 
 
