@@ -2,3 +2,81 @@ Las mismas practicas de segundo parcial solo que las vuelvo a hacer antes del ex
 
 P06A
 Proyecto multimodulo no contiene codigo y solo contiene POM aggregator aparte de los modulos. El mecanismo de Maven usado para gestionar modulos se llama reactor. Se encarga de recopilar todos los modulos y los ordena para la construccion. El orden es importante.
+
+pom Padre de proyecto multimodulo (POM aggregator)
+  <groupId>ppss</groupid>
+  <artifactId>matriculacion</artifactId>
+  <version>1.0-SNAPSHOT</version>
+  <packaging>pomm</packaging>
+  <modelues>
+    <module>proyecto-hijo1</module>
+    <module>proyecto-hijo2</module>
+  </modelues>
+
+
+pom:
+<dependecy>
+  <groupId>org.dbunit</groupid>
+  <artifactId>dbunit</artifactId>
+  <version>2.7.3</version>
+  <scope>test</scope>
+</dependecy>
+<dependecy>
+  <groupId>com.mysql</groupid>
+  <artifactId>mysql-connector-j</artifactId>
+  <version>8.0.32</version>
+  <scope>test</scope>
+</dependecy>
+<build>
+  <plugins>
+    <plugin>
+        <groupId>org.apache.maven.plugins</groupid>
+        <artifactId>maven-failsafe-plugin</artifactId>
+        <version>8.0.32</version>
+        <executions>
+          <execution>
+            <goal>integration-test</goal>
+            <goal>verify</goal>
+          </execution>
+        </executions>
+    <plugin>
+  </plugins>
+</build>
+
+Si queremos ejecutar sentencias sql antes de los test:
+
+<plugin>
+ <groupId>org.codehaus.mojo</groupId>
+ <artifactId>sql-maven-plugin</artifactId>  #Ejecuta sentencias SQL
+ <version>1.5</version>
+ <dependencies>
+   <dependency>
+     <groupId>com.mysql</groupId>
+     <artifactId>mysql-connector-j</artifactId> #Dependencia con el driver JDBC para acceder a la BD
+     <version>8.0.32</version>
+   </dependency>
+ </dependencies>
+ <configuration>  #Configuracion de driver
+   <driver>com.mysql.cj.jdbc.Driver</driver>
+   <url>jdbc:mysql://localhost:3306/?useSSL=false</url>
+   <username>root</username>
+   <password>ppss</password>
+ </configuration> 
+ <executions>
+  <execution>
+    <id>create-customer-table</id>
+    <phase>pre-integration-test</phase> #Ejectuar antes de tests de integracion
+    <goals>
+      <goal>execute</goal>
+    </goals>
+    <configuration> 
+     <srcFiles>
+       <srcFile>src/test/resources/sql/create_table_customer.sql</srcFile>  #script que se ejecutara
+      </srcFiles>
+    </configuration>
+  </execution>
+ </executions>
+</plugin>
+
+
+
