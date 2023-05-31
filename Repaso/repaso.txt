@@ -3,17 +3,34 @@ Las mismas practicas de segundo parcial solo que las vuelvo a hacer antes del ex
 P06A
 Proyecto multimodulo no contiene codigo y solo contiene POM aggregator aparte de los modulos. El mecanismo de Maven usado para gestionar modulos se llama reactor. Se encarga de recopilar todos los modulos y los ordena para la construccion. El orden es importante.
 
-pom Padre de proyecto multimodulo (POM aggregator)
+POM Padre de proyecto multimodulo (POM aggregator)
   <groupId>ppss</groupid>
   <artifactId>matriculacion</artifactId>
   <version>1.0-SNAPSHOT</version>
-  <packaging>pomm</packaging>
+  <packaging>pom</packaging>
   <modelues>
-    <module>proyecto-hijo1</module>
-    <module>proyecto-hijo2</module>
+    <module>modulo1</module>
+    <module>modulo2</module>
   </modelues>
+  
+POM de modulo debe incluir
+<parent>
+  <groupId>ppss</groupid>
+  <artifactId>matriculacion</artifactId>
+  <version>1.0-SNAPSHOT</version>
+</parent>
+<artifactId>modulo1</artifactId>
 
+Si modulo1 depende de modulo2 (en la representacion modulo1 apunta a modulo2 con la flecha)
+<dependecies>
+  <dependecy>
+    <groupId>{project.groupId}</groupid>
+    <artifactId>modulo2</artifactId>
+    <version>{project.version}</version>
+  </dependecy>
+</dependecies>
 
+P06B
 pom:
 <dependecy>
   <groupId>org.dbunit</groupid>
@@ -77,6 +94,67 @@ Si queremos ejecutar sentencias sql antes de los test:
   </execution>
  </executions>
 </plugin>
+
+
+Debemos incluir en los test de integracion:
+IDatabaseTester tester;
+IDatabaseConnection connection;
+
+@BeforeEach
+public void setup(){
+  String cadenaConexion = "jdbc:mysql://localhost:3306/baseDatos?useSSL=false";
+  String driver = "com.mysql.cj.jdbc.Driver";
+  tester = new JdbcDatabaseTester(driver, cadenaConexion, "root", "ppss");
+  conection = tester.getConnection();
+  
+  #Si hay una tabla xml inicial que siempre se va cargar:
+  IDataSet dataset = new FlatXmlDataLoader().load("/tabla-init.xml");
+  tester.setDataSet(dataSet);
+  tester.onSetup();
+}
+
+@Test
+public void c1(){
+
+  #Cargamos tabla inicial si no lo hicimos en el beforeEach
+  IDataSet dataset = new FlatXmlDataLoader().load("init.xml");
+  tester.setDataSet(dataset);
+  tester.onSetup();
+  
+  LLamamos SUT
+  Assertions.assertDoesNotThrow(()-> new addAlumno(new Alumno()));
+  
+  #Recuperamos datos de la bd actual
+  IDataSet actualDataSet = connection.createDataSet();
+  ITable actualTable = actualDataSet.getTable("nombreTabla");
+  
+  #Cargamos expected db con flatxmldataloader
+  #Comparamos las 2 tablas
+}
+
+#Si nuestro test debe fallar:
+@Test
+public void c2(){
+  Exception e = Assertions.assertThrows(Exception.class, ()-> addAlumno(a));
+  Assertions.assertEquals("mensaje", e.getMessage());
+}
+
+
+P07
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
