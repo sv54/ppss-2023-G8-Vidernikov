@@ -1,6 +1,9 @@
 Las mismas practicas de segundo parcial solo que las vuelvo a hacer antes del examen.
 
+---------------------------------
 P06A
+---------------------------------
+
 Proyecto multimodulo no contiene codigo y solo contiene POM aggregator aparte de los modulos. El mecanismo de Maven usado para gestionar modulos se llama reactor. Se encarga de recopilar todos los modulos y los ordena para la construccion. El orden es importante.
 
 POM Padre de proyecto multimodulo (POM aggregator)
@@ -30,8 +33,11 @@ Si modulo1 depende de modulo2 (en la representacion modulo1 apunta a modulo2 con
   </dependecy>
 </dependecies>
 
+---------------------------------
 P06B
-pom:
+---------------------------------
+POM
+---------------------------------
 <dependecy>
   <groupId>org.dbunit</groupid>
   <artifactId>dbunit</artifactId>
@@ -95,6 +101,9 @@ Si queremos ejecutar sentencias sql antes de los test:
  </executions>
 </plugin>
 
+---------------------------------
+Ejemplo de test de Integracion 
+---------------------------------
 
 Debemos incluir en los test de integracion:
 IDatabaseTester tester;
@@ -139,18 +148,200 @@ public void c2(){
   Assertions.assertEquals("mensaje", e.getMessage());
 }
 
-
+---------------------------------
 P07
+---------------------------------
+En esta parte ya no es el objetivo encontrar defectos de comportamiento de software, aqui pretendemos valorar en que grado el software satisface las expectativas de cliente. (evaluar la calidad de software)
+Usamos Selenium IDE para automatizar pruebas funcionales. Es más facil y más rapido de implementar.
+Pero tenemos test inflexibles. Tenemos duplicacion de codigo. Los test no se pueden parametrizar. No soporta la gestion de errores. No se pueden integrar en la construccion de proyecto.
+
+Comandos que más usados
+[comando]       [target]      [value] 
+click
+verify text
+store text      target        var
+type            [target]      texto
+echo            ${var}
+assert          var1          ${var2}
+execute script  script        nombreVar
+if              ${va1}==x
+end
+
+Comandos que no se han usado pero salen en teoria
+if-elseif-else-end
+times, end
+do, repeat if
+while, end
+
+---------------------------------
+P08
+---------------------------------
+Usamos WebDriver para tambien automatizar pruebas funcionales
+
+Elementos WebDriver que usaremos
+driver.get("url")
+driver.getTitle();
+driver.findElement(new By.ById("id"));
+webElement.click();
+webElement.sendKeys("texto");
+
+Actions builder = new Actions(driver);
+builder.moveToElement(elem);
+builder.perform()'
+
+String handle = driver.getWindowHandle();
+driver.switchTo().window(stringId)
+
+
+Siempre debemos incluir:
+@AfterEach
+public void close(){
+  driver.close();
+}
+
+---------------------------------
+POM
+---------------------------------
+
+<dependencies>
+    <dependency>
+        <groupId>org.seleniumhq.selenium</groupId>
+        <artifactId>selenium-api</artifactId>
+        <version>4.8.3</version>
+        <scope>compile</scope>
+    </dependency>
+    <dependency>
+        <groupId>org.seleniumhq.selenium</groupId>
+        <artifactId>selenium-chrome-driver</artifactId>
+        <version>4.8.3</version>
+        <scope>compile</scope>
+    </dependency>
+</dependencies>
+
+---------------------------------
+Si queremos incluir headless 
+---------------------------------
+en el POM:
+
+<properties>
+ ...
+ <headless.value>false</headless.value>
+</properties>
+
+<plugin>
+ ...
+ <artifactId>maven-surefire-plugin</artifactId>
+ ...
+ <configuration>
+   <systemPropertyVariables>
+    <chromeHeadless>${headless.value}</chromeHeadless>
+   </systemPropertyVariables>
+ </configuration>
+</plugin>
+
+En el codigo:
+@BeforeEach
+public void setup(){
+    ChromeOptions chromeOptions = new ChromeOptions();
+    boolean headless = Boolean.parseBoolean(System.getProperty("chromeHeadless"));
+    chromeOptions.setHeadless(headless);
+    driver = new ChromeDriver();
+    myAccountPage = PageFactory.initElements(driver,MyAccountPage.class);
+}
+
+Para llamar:
+mvn test ... -Dheadless.value=true
+---------------------------------
+Ejemplo de test sin Page Object:
+---------------------------------
+
+WebDriver driver;
+
+@BeforeEach
+public void setup(){
+  driver = new chromeDriver();
+  driver.get("url")
+}
+---------------------------------
+Ejemplo de test con Page Object:
+---------------------------------
+public class HomePage{
+  WebDriver driver;
+  WebElement linkLogin;
+  
+  public HomePage(WebDriver driver){
+    this.driver = driver;
+    driver.get("url");
+    linkLogin = driver.findElement(new By.ById("id"));
+  }
+  
+  public CustomerLoginPage enterLoginPage(){
+    login.click();
+    return new CustomerLoginPage(driver);
+  }
+  
+  public String getTitle(){
+    return driver.getTitle();
+  }
+  
+}
+
+public class TestLogin{
+  WebDriver driver;
+  HomePage homePage;
+
+  @BeforeEach
+  public void setup(){
+    driver = new chromeDriver();
+    homePage = new HomePage(driver);
+  }
+
+  @Test
+  public void test(){
+    assertEquals("titulo", homePage.getTitle());
+    LoginPage loginPage = homePage.goToLogin();
+    ...
+  }
+}
+
+---------------------------------
+Ejemplo de test con Page Object y Page Factory:
+---------------------------------
+public class TestLogin{
+  WebDriver driver;
+  MyAccountPage myAccountPage;
+  @BeforeEach
+  public void setup(){
+      driver = new ChromeDriver();
+      homePage = PageFactory.initElements(driver, HomePage.class);
+  }
+  
+  ...Tests
+}
+
+public class HomePage{
+
+  WebDriver driver;
+  @FindBy(name/id/xpath/linkText = "") WebElement elem;
+
+ public HomePage(WebDriver driver) {
+  this.driver = driver;
+  driver.get("url");
+ }
+
+}
 
 
 
-
-
-
-
-
-
-
+---------------------------------
+P09
+---------------------------------
+Pruebas funcionales --> Que hace el sistema.
+Usaremos JMeter para las pruebas no funcionales --> Como de bien lo hace el sistema.
+Ejemplos de prueba:
+- De Carga: valida el rendimiento
+- De pruebas de stress: peticiones por encima de limite de sistema. Valida la fiablidad y robustez
+- 
 
 
 
