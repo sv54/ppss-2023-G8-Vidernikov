@@ -338,12 +338,32 @@ P09
 ---------------------------------
 Pruebas funcionales --> Que hace el sistema.
 Usaremos JMeter para las pruebas no funcionales --> Como de bien lo hace el sistema.
+
+Metricas de los criterios de aceptacion:
+- Fiabilidad: usamos MTTF (Mean Time To Failure), MTTR(Mean Time To Repair), y MTBF=MTTF+MTTR (MTBF: Mean time between failures)
+- Disponibilidad: medimos MTTR. La idea es minimizarlo
+- Mantenibilidad: usamos MTTR para ver el tiempo que se tarda en analizar, diseñar, implementar y probar.
+- Escalabilidad
+
 Ejemplos de prueba:
-- De Carga: valida el rendimiento
+- De Carga: numero de usuarios concurrentes. Valida el rendimiento
 - De pruebas de stress: peticiones por encima de limite de sistema. Valida la fiablidad y robustez
-- 
 
-
+JMeter
+Si tenemos el grupo de hilos formado por 2 hilos con 2 samplers y 5 iteracion cada hilo realiza 10 peticiones (2 samplers * 5)
+Plan de pruebas
+  Hilo de ejecucion
+    Sampler --> puede contener un assertion
+    Assertion
+    Controlador logico --> Simple/Loop/Only once/Interleave controller y puede contener samplers
+  Elementos de configuracion --> HTTP Cookie Manager/ HTTP request Defaults.
+  Timers --> Constant timer/Uniform random timer/Gaussian random timer
+  Listener --> todos los listeners guardan la misma inforamcion. La diferencia es en como lo presentan.
+  
+  
+---------------------------------
+P10
+---------------------------------
 
 
 
