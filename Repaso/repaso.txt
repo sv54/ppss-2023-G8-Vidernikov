@@ -378,10 +378,104 @@ Nivel 7 --> cobertura de caminos. 100% implica niveles 1,2,3,4 pero no 5 (ni al 
 Usaremos JaCoCo para analizar los test. Genera informe con las siguientes metricas -->
 - Instrucciones --> numero de instrucciones byte code de Java.
 - Branches --> Se ejecuta cada decicion y condicion en verdadera y falsa. Si hay un if con 2 decisiones y 4 condiciones posibles entonces ese if tiene 6 branches. 
-- CC por metodo --> casos de prueba para cubrir todos los casos caminos lineamente independientes. CC = branches - Decision points + 1. Branches son aristas de decision point. branches = decision point * 2?
+- CC por metodo --> casos de prueba para cubrir todos los casos caminos lineamente independientes. CC = branches - Decision points + 1. Branches son aristas de decision point. ¿branches = decision point * 2?
 - Lineas 
 - Metodos
 - Clases
+
+
+JaCoCo
+POM:
+configurar niveles --> BUNDLE, PACKAGE, CLASS, SOURCEFILE o METHOD
+configurar contador --> INSTRUCTIONS, LINE, BRANCH, COMPLEXITY, METHOD, CLASS
+configurar valores --> TOTALCOUNT, COVEREDCOUNT, MISSEDCOUNT, COVEREDRATIO, MISSEDRATIO 
+<plugin>
+  <groupId>org.jacoco</groupId>
+  <artifactId>jacoco-maven-plugin</artifactId>
+  <version>0.8.10</version>
+
+  <executions>
+      <execution>
+          <id>default-prepare-agent</id>
+          <goals>
+              <goal>prepare-agent</goal>
+          </goals>
+      </execution>
+      <execution>
+          <id>default-report</id>
+          <goals>
+              <goal>report</goal>
+          </goals>
+      </execution>
+      <execution>
+          <id>default-check</id>
+          <goals>
+              <goal>check</goal>
+          </goals>
+          <configuration>
+              <rules>
+                  <rule>
+                      <element>BUNDLE</element>
+                      <limits>
+                          <limit>
+                              <counter>COMPLEXITY</counter>
+                              <value>COVEREDRATIO</value>
+                              <minimum>0.90</minimum>
+                          </limit>
+                          <limit>
+                              <counter>CLASS</counter>
+                              <value>COVEREDRATIO</value>
+                              <minimum>1</minimum>
+                          </limit>
+                          <limint>
+                              <counter>INSTRUCTION</counter>
+                              <value>COVEREDRATIO</value>
+                              <minimum>0.80</minimum>
+                          </limint>
+                      </limits>
+                      <element>CLASS</element>
+                      <limits>
+                          <limit>
+                              <counter>LINE</counter>
+                              <value>COVEREDRATIO</value>
+                              <minimum>0.75</minimum>
+                          </limit>
+                      </limits>
+                      <excludes>
+                          <excludes>ejercicio2.MyClass</excludes>
+                      </excludes>
+                  </rule>
+              </rules>
+          </configuration>
+      </execution>
+  </executions>
+</plugin>
+
+
+
+Ademas en el proyecto padre si queremos poner aggregate:
+  <plugin>
+    <groupId>org.jacoco</groupId>
+    <artifactId>jacoco-maven-plugin</artifactId>
+    <version>0.8.10</version>
+
+    <executions>
+      <execution>
+        <id>default-prepare-agent</id>
+        <goals>
+          <goal>prepare-agent</goal>
+        </goals>
+      </execution>
+      <execution>
+        <id>report-aggregate</id>
+        <phase>verify</phase>
+        <goals>
+          <goal>report-aggregate</goal>
+        </goals>
+      </execution>
+    </executions>
+  </plugin>
+
 
 
 
